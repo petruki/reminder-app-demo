@@ -1,12 +1,18 @@
 {
-  "name": "begin-app",
-  "description": "Begin Create React App + API",
+  "name": "reminder-app-demo",
+  "description": "Simple Reminder App",
+  "author": "Roger Floriano",
   "version": "0.0.0",
   "proxy": "http://localhost:3333",
   "dependencies": {
+    "formik": "^2.2.5",
+    "history": "^5.0.0",
     "react": "^17.0.1",
+    "react-datepicker": "^3.3.0",
     "react-dom": "^17.0.1",
-    "react-scripts": "3.4.4"
+    "react-router-dom": "^4.1.2",
+    "react-scripts": "4.0.0",
+    "rxjs": "^6.3.3"
   },
   "scripts": {
     "start": "run-p start:react api",
