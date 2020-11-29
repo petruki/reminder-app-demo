@@ -54,6 +54,9 @@ const LoginComponent = (props) => {
                 )}
             />
             </div>
+            <div className="card-footer">
+                <p className="margin-auto text-muted">Running at {process.env.REACT_APP_ENV || 'development'}</p>
+            </div>
         </div>
     );
 }

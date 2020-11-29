@@ -1,5 +1,5 @@
 @app
-begin-app
+reminder-app
 
 @static
 folder build

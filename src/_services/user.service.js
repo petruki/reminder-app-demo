@@ -1,5 +1,5 @@
 import { authHeader, handleResponse } from '../_helpers';
-import { dev } from '../_environment';
+import { env } from '../_environment';
 
 export const userService = {
     getUser
@@ -7,5 +7,5 @@ export const userService = {
 
 function getUser() {
     const requestOptions = { method: 'GET', headers: authHeader() };
-    return fetch(`${dev.API_URL}/api/user/me`, requestOptions).then(handleResponse);
+    return fetch(`${env.API_URL}/api/user/me`, requestOptions).then(handleResponse);
 }

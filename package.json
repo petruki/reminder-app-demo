@@ -22,7 +22,9 @@
     "eject": "react-scripts eject",
     "api": "cross-env NODE_ENV=testing ARC_LOCAL=1 npx sandbox",
     "test": "cross-env NODE_ENV=testing PORT=6666 tape test/**/*-test.js test/*-test.js | tap-spec",
-    "serve": "run-s build api"
+    "serve": "run-s build api",
+    "local": "react-scripts start",
+    "staging": "cross-env REACT_APP_ENV=staging react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"

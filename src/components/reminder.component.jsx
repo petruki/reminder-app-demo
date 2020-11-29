@@ -48,7 +48,7 @@ class ReminderComponent extends React.Component {
             if (this.state.reminder._id) {
                 reminderService
                     .updateById(this.state.reminder)
-                    .then(() => this.props.onFilter())
+                    .then(() => this.props.onFilter(null, null, false))
                     .catch((e) => this.props.onFilter());
             } else {
                 reminderService
@@ -73,7 +73,7 @@ class ReminderComponent extends React.Component {
                 this.props.onEditChild(true, this.state.reminder._id);
             }
         } else {
-            this.props.onFilter();
+            this.props.onFilter(null, null, false);
         }
     }
 

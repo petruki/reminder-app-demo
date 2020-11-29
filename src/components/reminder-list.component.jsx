@@ -3,6 +3,7 @@ import { ReminderComponent } from './reminder.component';
 import { reminderService } from '../_services';
 
 const ReminderListComponent = (props) => {
+    const [loading, setLoading] = useState(true);
     const [creating, setCreating] = useState(false);
     const [blurme, setBlurme] = useState(false);
     const [blurme_excluded, setBlurExcluded] = useState(0);
@@ -30,22 +31,27 @@ const ReminderListComponent = (props) => {
         }
     }
 
-    const onFilter = (e, clear) => {
-        setReminders([]);
-        setFilter(clear ? '' : filter);
+    const onFilter = (e, clear, reload = true) => {
+        setCreating(false);
+        setBlurme(false);
 
-        reminderService.findAll().then(response => {
-            let remindersFiltered = response.filter(reminder => {
-                const query = !clear ? filter.toLowerCase() : '';
-                return reminder.name.toLowerCase().indexOf(query) >= 0 ||
-                    reminder.description.toLowerCase().indexOf(query) >= 0 ||
-                    reminder.priority.toLowerCase() === query;
+        if (reload) {
+            setLoading(true);
+            setReminders([]);
+            setFilter(clear ? '' : filter);
+            
+            reminderService.findAll().then(response => {
+                let remindersFiltered = response.filter(reminder => {
+                    const query = !clear ? filter.toLowerCase() : '';
+                    return reminder.name.toLowerCase().indexOf(query) >= 0 ||
+                        reminder.description.toLowerCase().indexOf(query) >= 0 ||
+                        reminder.priority.toLowerCase() === query;
+                });
+    
+                setReminders(sortReminders(remindersFiltered));
+                setLoading(false);
             });
-
-            setReminders(sortReminders(remindersFiltered));
-            setCreating(false);
-            setBlurme(false);
-        });
+        }
     }
 
     const onEditChild = (status, blurme_excluded) => {
@@ -61,6 +67,7 @@ const ReminderListComponent = (props) => {
         reminderService.findAll().then(data => {
             setReminders(sortReminders(data));
             setBlurme(false);
+            setLoading(false);
         });
     });
 
@@ -77,9 +84,9 @@ const ReminderListComponent = (props) => {
                             <input className="form-control" type="text" placeholder="Search" value={filter}
                                 onChange={(e) => setFilter(e.target.value)} onKeyDown={onPressedEnter}></input>
                             <button className="btn btn-primary margin-left-10" onClick={onFilter}>
-                                <i className="fa fa-search"></i> Find</button>
+                                <i className="fa fa-search"></i></button>
                             <button className="btn btn-secondary margin-left-10" onClick={(e) => onFilter(e, true)}>
-                                <i className="fa fa-repeat"></i> Clear</button>
+                                <i className="fa fa-repeat"></i></button>
                         </div>
                     </div>
                 </div>
@@ -91,22 +98,31 @@ const ReminderListComponent = (props) => {
                         onFilter={onFilter} updateDashboard={props.updateDashboard} /> : ''}
             </div>
 
-            {reminders.length ?
-                <div className="row display-flex margin-10">
-                    <hr className="left-separator" />Your Reminders<hr className="right-separtor" />
+            {loading ? 
+                <div className="center">
+                    <hr className="left-separator" />
+                        <div className="spinner-border text-secondary center" role="status" />
+                    <hr className="right-separtor" />
                 </div> :
-                <div className="display-flex margin-10">
-                    <hr className="left-separator" />Create your first reminder<hr className="right-separtor" />
+                <div>
+                    {reminders.length ?
+                        <div className="row display-flex margin-10">
+                            <hr className="left-separator" />Your Reminders<hr className="right-separtor" />
+                        </div> :
+                        <div className="display-flex margin-10">
+                            <hr className="left-separator" />Create your first reminder<hr className="right-separtor" />
+                        </div>
+                    }
+
+                    <div className="row reminders-container">
+                        {reminders.map((reminder, i) => 
+                            <div key={i} className={isBlocked(reminder._id) ? 'reminder-item blured' : 'reminder-item'}>
+                                <ReminderComponent key={i} reminder={reminder} creating={false} onEditChild={onEditChild}
+                                    onFilter={onFilter} blockui={isBlocked(reminder._id)} updateDashboard={props.updateDashboard} />
+                            </div>)}
+                    </div>
                 </div>
             }
-
-            <div className="row reminders-container">
-                {reminders.map((reminder, i) => 
-                    <div key={i} className={isBlocked(reminder._id) ? 'reminder-item blured' : 'reminder-item'}>
-                        <ReminderComponent key={i} reminder={reminder} creating={false} onEditChild={onEditChild}
-                            onFilter={onFilter} blockui={isBlocked(reminder._id)} updateDashboard={props.updateDashboard} />
-                    </div>)}
-            </div>
         </div>
     );
 }
