@@ -1,6 +1,6 @@
 export const getEnvURL = () => {
-    if (process.env.NODE_ENV === 'production' ||
-        process.env.NODE_ENV === 'staging') {
+    if (process.env.REACT_APP_ENV === 'production' ||
+        process.env.REACT_APP_ENV === 'staging') {
             return 'https://reminder-api-demo.herokuapp.com';
     } else {
         return 'http://localhost:3001';
