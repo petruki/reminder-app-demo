@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Field, Form } from 'formik';
 
 import { authService } from '../_services';
+import { procEnv } from '../_environment';
 
 const LoginComponent = (props) => {
+    const [auth, setAuth] = useState(false);
+
     return (
         <div className="card width-70 margin-auto">
             <h5 className="card-header bg-secondary text-white">Login</h5>
@@ -16,6 +19,7 @@ const LoginComponent = (props) => {
                 }}
 
                 onSubmit={({ username, password }, { setStatus, setSubmitting }) => {
+                    setAuth(true);
                     setStatus();
                     authService.login(username, password)
                         .then(user => {
@@ -23,6 +27,7 @@ const LoginComponent = (props) => {
                             props.history.push(from);
                         }, error => {
                             setSubmitting(false);
+                            setAuth(false);
                             setStatus('Invalid username/password');
                         });
                 }}
@@ -55,7 +60,14 @@ const LoginComponent = (props) => {
             />
             </div>
             <div className="card-footer">
-                <p className="margin-auto text-muted">Running at {process.env.NODE_ENV || 'development'}</p>
+                {auth ?
+                    <div className="center">
+                            <hr className="left-separator" />
+                                <div className="spinner-border text-secondary center" role="status" />
+                            <hr className="right-separtor" />
+                    </div>
+                    : <p className="margin-auto text-muted">Running at {procEnv || 'development'}</p>
+                }
             </div>
         </div>
     );

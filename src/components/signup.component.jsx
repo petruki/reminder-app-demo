@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Field, Form } from 'formik';
 
 import { authService } from '../_services';
+import { procEnv } from '../_environment';
 
 const SignUpComponent = (props) => {
+    const [auth, setAuth] = useState(false);
+
     return (
         <div className="card width-70 margin-auto">
             <h5 className="card-header bg-secondary text-white">Sign Up</h5>
@@ -17,6 +20,7 @@ const SignUpComponent = (props) => {
                     }}
 
                     onSubmit={({ email, username, password }, { setStatus, setSubmitting }) => {
+                        setAuth(true);
                         setStatus();
                         authService.signup(email, username, password)
                             .then(user => {
@@ -24,6 +28,7 @@ const SignUpComponent = (props) => {
                                 props.history.push(from);
                             }, error => {
                                 setSubmitting(false);
+                                setAuth(false);
                                 setStatus('Failed to create this account');
                             });
                     }}
@@ -58,6 +63,16 @@ const SignUpComponent = (props) => {
                         </Form>
                     )}
                 />
+            </div>
+            <div className="card-footer">
+                {auth ?
+                    <div className="center">
+                            <hr className="left-separator" />
+                                <div className="spinner-border text-secondary center" role="status" />
+                            <hr className="right-separtor" />
+                    </div>
+                    : <p className="margin-auto text-muted">Running at {procEnv || 'development'}</p>
+                }
             </div>
         </div>
     );
