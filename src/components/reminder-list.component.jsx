@@ -94,8 +94,10 @@ const ReminderListComponent = (props) => {
 
             <div className="margin-10 top-100 component-sticky">
                 {creating ?
-                    <ReminderComponent reminder={{ name: '', description: '', priority: 'Low', date: new Date() }} creating={true}
-                        onFilter={onFilter} updateDashboard={props.updateDashboard} /> : ''}
+                    <div className="opacity-transition">
+                        <ReminderComponent reminder={{ name: '', description: '', priority: 'Low', date: new Date() }} creating={true}
+                            onFilter={onFilter} updateDashboard={props.updateDashboard} /></div> : ''
+                }
             </div>
 
             {loading ? 

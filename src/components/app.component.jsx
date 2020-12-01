@@ -30,7 +30,7 @@ const AppComponent = () => {
                         </div>
                     </nav>
                 }
-                <div className="container min-height-100vh">
+                <div className="container">
                     <div className="row">
                         <div className="card-body">
                             <AuthGuard exact path="/" component={DashboardComponent} />

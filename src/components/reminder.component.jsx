@@ -93,35 +93,44 @@ class ReminderComponent extends React.Component {
 
     render() {
         const { name, description, priority, date } = this.state.reminder;
+        const { editing, deleting, startDate } = this.state;
+
         return (
-            <div className={this.state.editing ? 'card margin-bottom-10 min-height-100 editing ' : 'card margin-bottom-10 min-height-100'}>
+            <div className={editing ? 
+                'card margin-bottom-10 min-height-100 editing' : 
+                'card margin-bottom-10 min-height-100'}>
+
                 <BlockUIComponent blocked={this.props.blockui} />
                 <div className="card-header">
-                    <p className="margin-auto float-inline-start" hidden={this.state.editing}><i className="fa fa-star"></i> {name}</p>
-                    <input hidden={!this.state.editing} type="text" 
+                    <p className="margin-auto float-inline-start" hidden={editing}><i className="fa fa-star"></i> {name}</p>
+                    <input hidden={!editing} type="text" 
                         className="form-control width-60 float-inline-start" placeholder="Reminder Name" value={name}
                         onChange={(e) => this.onChange(e, 'name')}>
                     </input>
-                    <div className={this.state.deleting ? 'hide' : 'float-inline-end'}>
-                        <button className={this.state.editing ? 'btn btn-success margin-left-10' : 'btn btn-primary margin-left-10'}
-                            onClick={() => this.onToggleEdit(!this.state.editing)}>
-                                <i className="fa fa-pencil-square-o"></i> {this.state.editing ? 'Save' : 'Edit'}
+                    <div className={deleting ? 'hide' : 'float-inline-end'}>
+                        <button className={editing ? 
+                            'btn btn-success margin-left-10' : 
+                            'btn btn-primary margin-left-10'}
+                            onClick={() => this.onToggleEdit(!editing)}>
+                                <i className="fa fa-pencil-square-o"></i> {editing ? 'Save' : 'Edit'}
                         </button>
-                        <button className={this.state.editing ? 'btn btn-secondary margin-left-10' : 'btn btn-danger margin-left-10'}
+                        <button className={editing ? 
+                            'btn btn-secondary margin-left-10' : 
+                            'btn btn-danger margin-left-10'}
                             onClick={() => this.onCancelDelete()}>
-                                <i className={this.state.editing ? 'fa fa-times' : 'fa fa-trash-o'}></i> {this.state.editing ? 'Cancel' : 'Delete'}
+                                <i className={editing ? 'fa fa-times' : 'fa fa-trash-o'}></i> {editing ? 'Cancel' : 'Delete'}
                         </button>
                     </div>
                 </div>
                 <div className="card-body">
                     <div className="margin-bottom-10">
-                        <p hidden={this.state.editing}>{description}</p>
-                        <textarea hidden={!this.state.editing} placeholder="Reminder Description"
+                        <p hidden={editing}>{description}</p>
+                        <textarea hidden={!editing} placeholder="Reminder Description"
                             className="form-control margin-bottom-10" rows="3" value={description}
                             onChange={(e) => this.onChange(e, 'description')}>
                         </textarea>
                     </div>
-                    <div className={this.state.deleting ? 'confirmation-panel' : 'hide'}>
+                    <div className={deleting ? 'confirmation-panel' : 'hide'}>
                         <p><i className="fa fa-exclamation"></i> Are you sure you want to delete this reminder?</p>
                         <button className="btn btn-secondary margin-left-10" onClick={() => this.onConfirmDelete(true)}>
                             <i className="fa fa-check"></i> Yes
@@ -133,15 +142,15 @@ class ReminderComponent extends React.Component {
                 </div>
                 <div className="card-footer">
                     <div className="display-flex">
-                        <select className="custom-select width-70" disabled={!this.state.editing} value={priority}
+                        <select className="custom-select width-70" disabled={!editing} value={priority}
                             onChange={(e) => this.onChange(e, 'priority')}>
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
                             <option value="High">High</option>
                         </select>
                         <DatePicker className="form-control margin-left-10"
-                            disabled={!this.state.editing}
-                            selected={date ? date : this.state.startDate} 
+                            disabled={!editing}
+                            selected={date ? date : startDate} 
                             onChange={date => this.onChangeDate(date)} />
                     </div>
                 </div>

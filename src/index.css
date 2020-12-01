@@ -1,25 +1,33 @@
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @keyframes blurIn {
+  0% { filter: blur(0px); }
+  100% { filter: blur(8px); }
+}
+
+@keyframes showIn {
   0% {
-    filter: blur(0px);
+    max-height: 0px;
+    box-shadow: 0px 0px 0px #575757;
   }
 
   100% {
-    filter: blur(8px);
+    max-height: 500px;
+    box-shadow: 0px 0px 20px #575757;
   }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
 }
 
 body {
   background: #d2d2d2;
+  margin-bottom: 100px;
 }
 
 footer {
@@ -27,6 +35,8 @@ footer {
   height: 60px;
   line-height: 60px;
   background-color: #f5f5f5;
+  position: absolute;
+  bottom: 0;
 }
 
 .card {
@@ -110,6 +120,11 @@ footer {
 
 .editing {
   box-shadow: 0px 0px 20px #575757;
+  animation: .3s ease-in 0s 1 showIn;
+}
+
+.opacity-transition {
+  animation: .3s ease-in 0s 1 fadeIn;
 }
 
 .hide {
@@ -147,6 +162,7 @@ footer {
 }
 
 .reminder-item {
+  animation: .5s ease-in 0s 1 fadeIn;
   margin: 5px;
   width: 49%;
 }
