@@ -97,7 +97,7 @@ class ReminderComponent extends React.Component {
 
         return (
             <div className={editing ? 
-                'card margin-bottom-10 min-height-100 editing' : 
+                'card margin-bottom-10 min-height-100 editing' + (!this.props.creating ? 'min-height-200px' : '') : 
                 'card margin-bottom-10 min-height-100'}>
 
                 <BlockUIComponent blocked={this.props.blockui} />
