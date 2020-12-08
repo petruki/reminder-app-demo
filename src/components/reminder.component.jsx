@@ -102,12 +102,12 @@ class ReminderComponent extends React.Component {
 
                 <BlockUIComponent blocked={this.props.blockui} />
                 <div className="card-header">
-                    <p className="margin-auto float-inline-start" hidden={editing}><i className="fa fa-star"></i> {name}</p>
+                    <p className="margin-auto float-leftt" hidden={editing}><i className="fa fa-star"></i> {name}</p>
                     <input hidden={!editing} type="text" 
-                        className="form-control width-60 float-inline-start" placeholder="Reminder Name" value={name}
+                        className="form-control width-60 float-left" placeholder="Reminder Name" value={name}
                         onChange={(e) => this.onChange(e, 'name')}>
                     </input>
-                    <div className={deleting ? 'hide' : 'float-inline-end'}>
+                    <div className={deleting ? 'hide' : 'float-right'}>
                         <button className={editing ? 
                             'btn btn-success margin-left-10' : 
                             'btn btn-primary margin-left-10'}

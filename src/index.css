@@ -104,12 +104,12 @@ footer {
   min-height: 100vh;
 }
 
-.float-inline-end {
-  float: inline-end;
+.float-right {
+  float: right;
 }
 
-.float-inline-start {
-  float: inline-start;
+.float-left {
+  float: left;
 }
 
 .findReminder {
