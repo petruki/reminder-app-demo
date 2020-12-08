@@ -81,7 +81,7 @@ const ReminderListComponent = (props) => {
                                 <i className="fa fa-star"></i> Create</button>
                         </div>
                         <div className="findReminder">
-                            <input className="form-control" type="text" placeholder="Search" value={filter}
+                            <input className="form-control width-50" type="text" placeholder="Search" value={filter}
                                 onChange={(e) => setFilter(e.target.value)} onKeyDown={onPressedEnter}></input>
                             <button className="btn btn-primary margin-left-10" onClick={onFilter}>
                                 <i className="fa fa-search"></i></button>

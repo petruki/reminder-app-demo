@@ -197,4 +197,16 @@ footer {
   .separtor, .left-separator, .right-separtor {
     width: 20%;
   }
+
+  .width-70 {
+    width: auto;
+  }
+
+  .width-50 {
+    width: 50%;
+  }
+
+  .hide-small-screen {
+    display: none;
+  }
 }

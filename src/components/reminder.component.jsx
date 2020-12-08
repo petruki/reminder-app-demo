@@ -112,13 +112,15 @@ class ReminderComponent extends React.Component {
                             'btn btn-success margin-left-10' : 
                             'btn btn-primary margin-left-10'}
                             onClick={() => this.onToggleEdit(!editing)}>
-                                <i className="fa fa-pencil-square-o"></i> {editing ? 'Save' : 'Edit'}
+                                <i className="fa fa-pencil-square-o"></i>
+                                <span className="hide-small-screen">{editing ? 'Save' : 'Edit'}</span>
                         </button>
                         <button className={editing ? 
                             'btn btn-secondary margin-left-10' : 
                             'btn btn-danger margin-left-10'}
                             onClick={() => this.onCancelDelete()}>
-                                <i className={editing ? 'fa fa-times' : 'fa fa-trash-o'}></i> {editing ? 'Cancel' : 'Delete'}
+                                <i className={editing ? 'fa fa-times' : 'fa fa-trash-o'}></i>
+                                <span className="hide-small-screen">{editing ? 'Cancel' : 'Delete'}</span>
                         </button>
                     </div>
                 </div>
